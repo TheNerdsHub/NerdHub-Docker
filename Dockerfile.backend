@@ -5,15 +5,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Install curl for network testing
-RUN apt-get update && apt-get install -y curl
-
 # Clone the backend repository
 RUN git clone https://github.com/TheNerdsHub/NerdHub-Backend.git .
-WORKDIR /src/NerdHub-Backend
-
-# Test network connectivity
-RUN curl -I https://www.nuget.org
 
 # Restore dependencies and build the project
 RUN dotnet restore
