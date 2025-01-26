@@ -2,7 +2,7 @@ FROM node:18
 WORKDIR /app
 
 # Clone the Discord bot repository
-RUN git clone https://github.com/TheNerdsHub/NerdHub-DiscordBot.git .
+RUN git clone https://github.com/TheNerdsHub/NerdHub-Discord.git .
 WORKDIR /app/NerdHub-DiscordBot
 
 # Install dependencies
