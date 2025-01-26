@@ -7,6 +7,8 @@ services:
       - "${BACKEND_PORT}:80"
     depends_on:
       - mongo
+    env_file:
+      - stack.env
 
   frontend:
     build:
@@ -14,6 +16,8 @@ services:
       dockerfile: Dockerfile.frontend
     ports:
       - "${FRONTEND_PORT}:80"
+    env_file:
+      - stack.env
 
   discordbot:
     build:
@@ -21,6 +25,8 @@ services:
       dockerfile: Dockerfile.discordbot
     depends_on:
       - mongo
+    env_file:
+      - stack.env
 
   mongo:
     image: mongo
@@ -31,6 +37,8 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongo-data:/data/db
+    env_file:
+      - stack.env
 
 volumes:
   mongo-data:
