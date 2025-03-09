@@ -37,11 +37,20 @@ services:
   mongo:
     image: mongo
     ports:
-      - "27018:27017"
+      - "${MONGODB_PORT}:27017"
     env_file:
       - stack.env
     volumes:
       - mongo-data:/data/db
+    networks:
+      - nerdhub-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - "${KEYCLOAK_PORT}:8080"
+    env_file:
+      - stack.env
     networks:
       - nerdhub-network
 
