@@ -27,8 +27,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.discordbot
-    ports:
-      - "${DISCORD_BOT_PORT}:80"
     depends_on:
       - mongo
     env_file:
