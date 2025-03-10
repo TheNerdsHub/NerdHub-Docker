@@ -27,6 +27,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.discordbot
+    ports:
+      - "${DISCORD_BOT_PORT}:80"
     depends_on:
       - mongo
     env_file:
@@ -47,10 +49,10 @@ services:
 
   postgres:
     image: postgres:latest
-    environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: keycloak
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    env_file:
+      - stack.env
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
@@ -63,11 +65,6 @@ services:
       - "${KEYCLOAK_PORT}:8080"
     env_file:
       - stack.env
-    environment:
-      - KC_DB=postgres
-      - KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak
-      - KC_DB_USERNAME=keycloak
-      - KC_DB_PASSWORD=keycloak
     depends_on:
       - postgres
     networks:
