@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ghcr.io/thenerdshub/nerdhub-backend:latest
+    image: ghcr.io/thenerdshub/nerdhub-backend:main
     ports:
       - "${BACKEND_PORT}:80"
     depends_on:
@@ -12,7 +12,7 @@ services:
         ipv4_address: 172.20.0.2
 
   frontend:
-    image: ghcr.io/thenerdshub/nerdhub-frontend:latest
+    image: ghcr.io/thenerdshub/nerdhub-frontend:main
     ports:
       - "${FRONTEND_PORT}:80"
     env_file:
@@ -22,7 +22,7 @@ services:
         ipv4_address: 172.20.0.3
 
   discordbot:
-    image: ghcr.io/thenerdshub/nerdhub-discord:latest
+    image: ghcr.io/thenerdshub/nerdhub-discord:main
     depends_on:
       - mongo
     env_file:
