@@ -5,6 +5,8 @@ services:
       - "${BACKEND_PORT}:80"
     depends_on:
       - mongo
+    environment:
+      - ASPNETCORE_URLS=http://+:80 # Set this port to the same as the internal port
     env_file:
       - stack.env
     networks:
