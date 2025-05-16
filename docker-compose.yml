@@ -17,6 +17,8 @@ services:
     image: ghcr.io/thenerdshub/nerdhub-frontend:latest
     ports:
       - "${FRONTEND_PORT}:80"
+    depends_on:
+      - backend
     env_file:
       - stack.env
     networks:
