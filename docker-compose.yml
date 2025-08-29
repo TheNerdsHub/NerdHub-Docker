@@ -47,35 +47,34 @@ services:
       nerdhub-network:
         ipv4_address: 172.20.0.5
 
-  postgres:
-    image: postgres:latest
-    ports:
-      - "${POSTGRES_PORT}:5432"
-    env_file:
-      - stack.env
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    networks:
-      nerdhub-network:
-        ipv4_address: 172.20.0.6
-
-  keycloak:
-    image: quay.io/keycloak/keycloak:latest
-    command: 
-      - start-dev
-    ports:
-      - "${KEYCLOAK_PORT}:8080"
-    env_file:
-      - stack.env
-    depends_on:
-      - postgres
-    networks:
-      nerdhub-network:
-        ipv4_address: 172.20.0.7
+#postgres:
+#  image: postgres:latest
+#  ports:
+#    - "${POSTGRES_PORT}:5432"
+#  env_file:
+#    - stack.env
+#  volumes:
+#    - postgres-data:/var/lib/postgresql/data
+#  networks:
+#    nerdhub-network:
+#      ipv4_address: 172.20.0.6
+#
+#  keycloak:
+#    image: quay.io/keycloak/keycloak:latest
+#    command: 
+#      - start-dev
+#    ports:
+#      - "${KEYCLOAK_PORT}:8080"
+#    env_file:
+#      - stack.env
+#      - postgres
+#   networks:
+#     nerdhub-network:
+#       ipv4_address: 172.20.0.7
 
 volumes:
   mongo-data:
-  postgres-data:
+# postgres-data:
 
 networks:
   nerdhub-network:
