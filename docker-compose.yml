@@ -10,8 +10,6 @@ services:
       - MONGODB_CONNECTION_STRING=${MONGODB_CONNECTION_STRING}
       - STEAM_API_KEY=${STEAM_API_KEY}
       - CORS_ORIGINS=${CORS_ORIGINS}
-    env_file:
-      - stack.env
     networks:
       nerdhub-network:
         ipv4_address: 172.20.0.2
@@ -24,8 +22,6 @@ services:
       - backend
     environment:
       - API_URL=${API_URL}
-    env_file:
-      - stack.env
     networks:
       nerdhub-network:
         ipv4_address: 172.20.0.3
@@ -37,8 +33,6 @@ services:
     environment:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - BACKEND_URL=${BACKEND_URL}
-    env_file:
-      - stack.env
     networks:
       nerdhub-network:
         ipv4_address: 172.20.0.4
@@ -47,8 +41,9 @@ services:
     image: mongo
     ports:
       - "${MONGODB_PORT}:27017"
-    env_file:
-      - stack.env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
     volumes:
       - mongo-data:/data/db
     networks:
@@ -59,8 +54,6 @@ services:
 #  image: postgres:latest
 #  ports:
 #    - "${POSTGRES_PORT}:5432"
-#  env_file:
-#    - stack.env
 #  volumes:
 #    - postgres-data:/var/lib/postgresql/data
 #  networks:
@@ -73,9 +66,6 @@ services:
 #      - start-dev
 #    ports:
 #      - "${KEYCLOAK_PORT}:8080"
-#    env_file:
-#      - stack.env
-#      - postgres
 #   networks:
 #     nerdhub-network:
 #       ipv4_address: 172.20.0.7
