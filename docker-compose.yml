@@ -7,9 +7,9 @@ services:
       - mongo
     environment:
       - ASPNETCORE_URLS=http://+:80 # Set this port to the same as the internal port
-      - MONGODB_CONNECTION_STRING=${MONGODB_CONNECTION_STRING}
-      - STEAM_API_KEY=${STEAM_API_KEY}
-      - CORS_ORIGINS=${CORS_ORIGINS}
+      - BACKEND_MONGO_URI=${BACKEND_MONGO_URI}
+      - BACKEND_STEAM_API_KEY=${BACKEND_STEAM_API_KEY}
+      - BACKEND_CORS_ORIGINS=${BACKEND_CORS_ORIGINS}
     networks:
       nerdhub-network:
         ipv4_address: 172.20.0.2
@@ -21,7 +21,7 @@ services:
     depends_on:
       - backend
     environment:
-      - API_URL=${API_URL}
+      - API_URL_EXTERNAL=${API_URL_EXTERNAL}
     networks:
       nerdhub-network:
         ipv4_address: 172.20.0.3
@@ -31,8 +31,8 @@ services:
     depends_on:
       - mongo
     environment:
-      - DISCORD_TOKEN=${DISCORD_TOKEN}
-      - BACKEND_URL=${BACKEND_URL}
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - API_URL_INTERNAL=${API_URL_INTERNAL}
     networks:
       nerdhub-network:
         ipv4_address: 172.20.0.4
