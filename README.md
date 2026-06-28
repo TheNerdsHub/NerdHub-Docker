@@ -9,6 +9,7 @@ The `docker-compose.yml` file orchestrates the deployment of the following servi
 - **`backend`**: The .NET 8 backend API.
 - **`frontend`**: The React-based frontend application.
 - **`discordbot`**: The Discord.js bot.
+- **`imgproxy`**: An on-the-fly image processing server that converts Steam JPEGs to AVIF.
 - **`mongo`**: A MongoDB instance for data storage.
 
 All services communicate over an internal Docker network (`172.20.0.0/16`) using static IPs.
@@ -16,11 +17,12 @@ All services communicate over an internal Docker network (`172.20.0.0/16`) using
 ## Services
 
 | Service | Container Port | Default Host Port | IP |
-|---|---|---|---|
+|---|---|---|---|---|
 | Backend | 80 | `5000` | `172.20.0.2` |
 | Frontend | 80 | `3000` | `172.20.0.3` |
 | Discord Bot | — | — | `172.20.0.4` |
 | MongoDB | 27017 | `27017` | `172.20.0.5` |
+| imgproxy | 8080 | — | `172.20.0.6` |
 
 ## Environment Variables
 
@@ -41,6 +43,7 @@ Variables use a prefix convention so you know which service owns each one:
 | `BACKEND_CORS_ORIGINS` | Backend | Comma-separated list of allowed CORS origins | External | `http://localhost:3000,http://localhost:5173,https://your-production-frontend.com` |
 | `FRONTEND_PORT` | Docker | Host port mapped to frontend container port 80 | Host | `3000` |
 | `API_URL_EXTERNAL` | Frontend | Backend URL the browser uses (public/proxy address) | External | `http://172.20.0.2:80` |
+| `IMGPROXY_URL` | Frontend | Path prefix proxied to imgproxy via nginx (default: `/images`) | Internal | `/images` |
 | `DISCORD_BOT_TOKEN` | Discord Bot | Discord bot authentication token | Secret | `YOUR_TOKEN_HERE` |
 | `API_URL_INTERNAL` | Discord Bot | Backend URL the bot uses (Docker-internal hostname) | Internal | `http://172.20.0.2:80` |
 | `MONGODB_PORT` | Docker | Host port mapped to MongoDB container port 27017 | Host | `27017` |
