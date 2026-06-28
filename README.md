@@ -18,11 +18,13 @@ All services communicate over an internal Docker network (`172.20.0.0/16`) using
 
 | Service | Container Port | Default Host Port | IP |
 |---|---|---|---|---|
-| Backend | 80 | `5000` | `172.20.0.2` |
-| Frontend | 80 | `3000` | `172.20.0.3` |
+| Backend | 80 | `9003` | `172.20.0.2` |
+| Frontend | 80 | `9004` | `172.20.0.3` |
 | Discord Bot | — | — | `172.20.0.4` |
-| MongoDB | 27017 | `27017` | `172.20.0.5` |
-| imgproxy | 8080 | — | `172.20.0.6` |
+| MongoDB | 27017 | `9002` | `172.20.0.5` |
+| imgproxy | 8080 | `8080`¹ | `172.20.0.6` |
+
+> ¹ imgproxy port is optional — not needed for normal operation as nginx proxies requests internally.
 
 ## Environment Variables
 
@@ -37,16 +39,17 @@ Variables use a prefix convention so you know which service owns each one:
 
 | Variable | Service | Purpose | Internal / External | `stack.env` Default |
 |---|---|---|---|---|
-| `BACKEND_PORT` | Docker | Host port mapped to backend container port 80 | Host | `5000` |
+| `BACKEND_PORT` | Docker | Host port mapped to backend container port 80 | Host | `9003` |
 | `BACKEND_MONGO_URI` | Backend | MongoDB connection string for the .NET API | Internal | `mongodb://BACKEND_MONGO_URI_HERE` |
 | `BACKEND_STEAM_API_KEY` | Backend | Steam API key for fetching game data | Secret | `API_KEY_HERE` |
 | `BACKEND_CORS_ORIGINS` | Backend | Comma-separated list of allowed CORS origins | External | `http://localhost:3000,http://localhost:5173,https://your-production-frontend.com` |
-| `FRONTEND_PORT` | Docker | Host port mapped to frontend container port 80 | Host | `3000` |
+| `FRONTEND_PORT` | Docker | Host port mapped to frontend container port 80 | Host | `9004` |
 | `API_URL_EXTERNAL` | Frontend | Backend URL the browser uses (public/proxy address) | External | `http://172.20.0.2:80` |
 | `IMGPROXY_URL` | Frontend | Path prefix proxied to imgproxy via nginx (default: `/images`) | Internal | `/images` |
 | `DISCORD_BOT_TOKEN` | Discord Bot | Discord bot authentication token | Secret | `YOUR_TOKEN_HERE` |
 | `API_URL_INTERNAL` | Discord Bot | Backend URL the bot uses (Docker-internal hostname) | Internal | `http://172.20.0.2:80` |
-| `MONGODB_PORT` | Docker | Host port mapped to MongoDB container port 27017 | Host | `27017` |
+| `MONGODB_PORT` | Docker | Host port mapped to MongoDB container port 27017 | Host | `9002` |
+| `IMGPROXY_PORT` | Docker | Optional host port to expose imgproxy directly (not needed for normal operation) | Host | `8080` |
 | `MONGO_INITDB_ROOT_USERNAME` | MongoDB | MongoDB root username | Internal | `root` |
 | `MONGO_INITDB_ROOT_PASSWORD` | MongoDB | MongoDB root password | Internal | `root` |
 
