@@ -20,6 +20,7 @@ services:
       - "${FRONTEND_PORT}:80"
     depends_on:
       - backend
+      - imgproxy
     environment:
       - API_URL_EXTERNAL=${API_URL_EXTERNAL}
     networks:
@@ -36,6 +37,22 @@ services:
     networks:
       nerdhub-network:
         ipv4_address: 172.20.0.4
+
+  imgproxy:
+    image: ghcr.io/imgproxy/imgproxy:latest
+    environment:
+      - IMGPROXY_ALLOWED_SOURCES=*.steamstatic.com,*.akamaihd.net
+      - IMGPROXY_MAX_SRC_RESOLUTION=100
+      - IMGPROXY_CACHE_TTL=31536000
+      - IMGPROXY_USE_ETAG=true
+      - IMGPROXY_AVIF_QUALITY=65
+      - IMGPROXY_WEBP_QUALITY=80
+      - IMGPROXY_JPEG_QUALITY=80
+      - IMGPROXY_FREE_MEMORY_INTERVAL=30
+      - IMGPROXY_MALLOC=tcmalloc
+    networks:
+      nerdhub-network:
+        ipv4_address: 172.20.0.6
 
   mongo:
     image: mongo
