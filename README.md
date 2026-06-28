@@ -49,7 +49,7 @@ Variables use a prefix convention so you know which service owns each one:
 | `DISCORD_BOT_TOKEN` | Discord Bot | Discord bot authentication token | Secret | `YOUR_TOKEN_HERE` |
 | `API_URL_INTERNAL` | Discord Bot | Backend URL the bot uses (Docker-internal hostname) | Internal | `http://172.20.0.2:80` |
 | `MONGODB_PORT` | Docker | Host port mapped to MongoDB container port 27017 | Host | `9002` |
-| `IMGPROXY_PORT` | Docker | Optional host port to expose imgproxy directly (not needed for normal operation) | Host | `8080` |
+| `IMGPROXY_PORT` | Docker | Optional host port to expose imgproxy directly (not needed for normal operation) | Host | `9005` |
 | `MONGO_INITDB_ROOT_USERNAME` | MongoDB | MongoDB root username | Internal | `root` |
 | `MONGO_INITDB_ROOT_PASSWORD` | MongoDB | MongoDB root password | Internal | `root` |
 
